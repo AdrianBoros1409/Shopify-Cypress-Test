@@ -7,7 +7,8 @@
     "dev": "turbo run dev",
     "start": "turbo run start",
     "types": "turbo run types",
-    "prettier-fix": "prettier --write ."
+    "prettier-fix": "prettier --write .",
+    "test": "npx cypress run"
   },
   "devDependencies": {
     "husky": "^8.0.1",
