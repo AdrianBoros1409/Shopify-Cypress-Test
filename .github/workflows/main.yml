@@ -15,8 +15,6 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.6.0
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
-      - name: Run Yarn 
-        run: yarn   
-      - name: Build yarn
-        run: yarn build
+        run: pnpm install
+      - name: Build pnpm 
+        run: pnpm build   
