@@ -23,5 +23,5 @@ jobs:
         uses: pnpm/action-setup@v2.2.4
       - run: npm i -g "pnpm@${PNPM_VERSION}" "@napi-rs/cli@${NAPI_CLI_VERSION}" "turbo@${TURBO_VERSION}"
         name: install npm packages
-      - run: pnpm build
+      - run: pnpm start
         name: install pnpm
