@@ -17,14 +17,14 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
       - name: Try
-        uses: borales/actions-yarn@v2.0.0
+        uses: Borales/actions-yarn@v4.2.0
         with:
           cmd: install
 
-      - uses: borales/actions-yarn@v2.0.0
+      - uses: Borales/actions-yarn@v4.2.0
         with:
           cmd: build
 
-      - uses: borales/actions-yarn@v2.0.0
+      - uses: Borales/actions-yarn@v4.2.0
         with:
           cmd: test
