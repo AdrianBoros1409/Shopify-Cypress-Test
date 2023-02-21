@@ -17,9 +17,6 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
       - name: Run Yarn 
-        run: npm run build
-      - name: Start
-        run: npm run start
-      - name: Start Yarn 
-        run: yarn start 
-     
+        run: yarn   
+      - name: Build yarn
+        run: yarn build
