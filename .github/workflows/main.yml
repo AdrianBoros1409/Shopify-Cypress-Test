@@ -20,3 +20,5 @@ jobs:
         run: yarn 
       - name: install node modules
         uses: tecolicom/actions-install-node-modules@v1.2
+      - name: Build Yarn 
+        run: yarn build
