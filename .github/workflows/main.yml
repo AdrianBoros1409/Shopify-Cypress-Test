@@ -16,5 +16,5 @@ jobs:
         uses: actions/setup-node@v3.6.0
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.4
-      - name: Build pnpm 
-        run: pnpm build
+      - name: Run Yarn 
+        run: yarn 
