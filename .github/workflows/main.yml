@@ -27,5 +27,6 @@ jobs:
       run: yarn install --frozen-lockfile
     - name: Install npm
       run: |
-        npm start
+        npm install typescript --save-dev
         npm install
+        npm start
