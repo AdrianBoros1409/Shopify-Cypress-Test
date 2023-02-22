@@ -19,13 +19,12 @@ jobs:
         cache-dependency-path: package-lock.json
     - name: Setup pnpm
       run: npm install -g pnpm
-    - name: Install yarn
-      run: npm install -g yarn
-    - name: Install turbo
-      run: npm i turbo
+    - uses: actions/cache@v2
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
     - name: Yarn install
       run: yarn install --frozen-lockfile
-    - name: Install npm
-      run: |
-        npm install typescript --save-dev
-        yarn test
+    - name: Install turbo
+      run: npm i turbo
+      
