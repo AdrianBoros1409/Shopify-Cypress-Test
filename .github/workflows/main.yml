@@ -21,5 +21,7 @@ jobs:
       uses: pnpm/action-setup@v2.2.4
     - run: npm install -g yarn
     - run: yarn install --frozen-lockfile
+    - name: Install npm
+      run: npm install
     - name: Build Example
       run: yarn build
