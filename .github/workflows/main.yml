@@ -24,7 +24,7 @@ jobs:
         path: '**/node_modules'
         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
     - name: pnpm install
-      run: pnpm install --frozen-lockfile
+      run: pnpm install --no-frozen-lockfile
     - name: Install turbo
       run: npm i turbo
     - name: pnpm build
