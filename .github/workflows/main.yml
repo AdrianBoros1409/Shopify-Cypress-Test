@@ -15,11 +15,13 @@ jobs:
     - name: Setup Node.js environment
       uses: actions/setup-node@v3.6.0
       with: 
-        node-version: 16.18.0
+        node-version: 18.x
         cache-dependency-path: package-lock.json
     - name: Setup pnpm
-      uses: pnpm/action-setup@v2.2.4
+      run: npm install -g pnpm
     - run: npm install -g yarn
+    - name: Install turbo
+    - run: pnpm install turbo@latest --global
     - run: yarn install --frozen-lockfile
     - name: Install npm
       run: npm install
