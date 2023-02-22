@@ -22,7 +22,7 @@ jobs:
     - name: Install yarn
       run: npm install -g yarn
     - name: Install turbo
-      run: pnpm install turbo@latest --global
+      run: npm i turbo
     - name: Yarn install
       run: yarn install --frozen-lockfile
     - name: Install npm
