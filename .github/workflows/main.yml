@@ -29,4 +29,4 @@ jobs:
       run: |
         npm install typescript --save-dev
         npm install
-        npm start
+        npm build
