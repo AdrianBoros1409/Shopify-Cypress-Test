@@ -5,8 +5,8 @@ describe('Home screen UI test suite', () => {
     beforeEach(() => {
         cy.visit('/')
         cy.setCookie('accept_cookies', 'accepted')
-        cy.intercept('GET','http://localhost:3000/_next/static/development/_devPagesManifest.json').as('devPagesManifest')
-        cy.wait('@devPagesManifest')
+        //cy.intercept('GET','http://localhost:3000/_next/static/development/_devPagesManifest.json').as('devPagesManifest')
+        //cy.wait('@devPagesManifest')
     })
     it('H-001 Correctness of URL and title', () => {
         cy.url().should('contain', 'localhost:3000')
