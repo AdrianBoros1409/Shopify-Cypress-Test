@@ -28,7 +28,7 @@ const Grid: FC<GridProps> = ({
     },
     className
   )
-  return <div className={rootClassName}>{children}</div>
+  return <div className={rootClassName} data-test="grid-layout">{children}</div>
 }
 
 export default Grid

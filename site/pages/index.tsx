@@ -44,12 +44,12 @@ export default function Home({
         {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard
             key={product.id}
+            data-test="product-card"
             product={product}
             imgProps={{
               alt: product.name,
               width: i === 0 ? 1080 : 540,
               height: i === 0 ? 1080 : 540,
-              priority: true
             }}
           />
         ))}

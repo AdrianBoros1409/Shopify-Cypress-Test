@@ -42,6 +42,7 @@ const ProductCard: FC<Props> = ({
       href={`/product/${product.slug}`}
       className={rootClassName}
       aria-label={product.name}
+      data-test="product-card"
     >
       {variant === 'slim' && (
         <>
@@ -50,6 +51,7 @@ const ProductCard: FC<Props> = ({
           </div>
           {product?.images && (
             <Image
+              data-test="product-card-img"
               quality="85"
               src={product.images[0]?.url || placeholderImg}
               alt={product.name || 'Product Image'}
@@ -80,7 +82,7 @@ const ProductCard: FC<Props> = ({
               </div>
             </div>
           )}
-          <div className={s.imageContainer}>
+          <div className={s.imageContainer} data-test="card-img-container">
             {product?.images && (
               <Image
                 alt={product.name || 'Product Image'}

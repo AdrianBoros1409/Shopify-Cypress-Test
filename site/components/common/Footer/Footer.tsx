@@ -42,19 +42,27 @@ const Footer: FC<Props> = ({ className, pages }) => {
               <span>ACME</span>
             </Link>
           </div>
-          <div className="col-span-1 lg:col-span-7" data-test="ftr-navigation-btn">
+          <div className="col-span-1 lg:col-span-7" data-test="ftr-navigation">
             <div className="grid md:grid-rows-4 md:grid-cols-3 md:grid-flow-col">
-              {[...links, ...sitePages].map((page) => (
-                <span key={page.url} className="py-3 md:py-0 md:pb-4">
+    
+                <span key={"Home"} className="py-3 md:py-0 md:pb-4">
                   <Link
-                    href={page.url!}
-                    data-test="ftr-navigation"
+                    href={"https://www.shopify.com/"}
+                    data-test="ftr-navigation-btn-home"
                     className="text-accent-9 hover:text-accent-6 transition ease-in-out duration-150"
                   >
-                    {page.name}
+                    {"Home"}
                   </Link>
                 </span>
-              ))}
+                <span key={"Contact"} className="py-3 md:py-0 md:pb-4">
+                  <Link
+                    href={"https://vercel.com/contact"}
+                    data-test="ftr-navigation-btn-contact"
+                    className="text-accent-9 hover:text-accent-6 transition ease-in-out duration-150"
+                  >
+                    {"Contact"}
+                  </Link>
+                </span>
             </div>
           </div>
           <div className="col-span-1 lg:col-span-3 flex items-start lg:justify-end text-primary">

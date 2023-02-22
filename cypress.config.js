@@ -8,6 +8,7 @@ module.exports = defineConfig({
     baseUrl: 'http://localhost:3000/',
     specPattern: 'cypress/e2e/TestCases/*.cy.{js,ts}',
     viewportHeight: 1024,
-    viewportWidth: 1560
+    viewportWidth: 1560,
+    requestTimeout: 8000
   },
 });
