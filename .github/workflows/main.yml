@@ -28,4 +28,5 @@ jobs:
     - name: Install npm
       run: |
         npm install typescript --save-dev
+        npm install -g node-modules
         yarn build
