@@ -10,8 +10,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 5
     steps:
     - uses: actions/checkout@v3
     - name: Setup Node.js environment
@@ -32,6 +30,6 @@ jobs:
     - name: pnpm build
       run: pnpm build
     - name: pnpm start
-      run: pnpm start
+      run: pnpm start &
     - name: pnpm test
       run: pnpm test
