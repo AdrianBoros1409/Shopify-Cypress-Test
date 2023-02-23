@@ -50,7 +50,7 @@ const I18nWidget: FC = () => {
           className="flex items-center relative"
           onClick={() => setDisplay(!display)}
         >
-          <button className={s.button} aria-label="Language selector" data-test="ftr-languare">
+          <button className={s.button} aria-label="Language selector" data-test="ftr-language-sel">
             <Image
               width="20"
               height="20"
@@ -68,7 +68,7 @@ const I18nWidget: FC = () => {
         </div>
         <div className="absolute top-0 right-0">
           {options?.length && display ? (
-            <div className={s.dropdownMenu}>
+            <div className={s.dropdownMenu} data-test="language-dropdown">
               <div className="flex flex-row justify-end px-6">
                 <button
                   onClick={() => setDisplay(false)}

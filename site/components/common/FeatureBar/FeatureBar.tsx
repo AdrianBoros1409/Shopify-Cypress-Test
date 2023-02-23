@@ -26,7 +26,7 @@ const FeatureBar: React.FC<FeatureBarProps> = ({
     className
   )
   return (
-    <div className={rootClassName}>
+    <div className={rootClassName} data-test="cookies-bar">
       <span className="block md:inline">{title}</span>
       <span className="block mb-6 md:inline md:mb-0 md:ml-2">
         {description}

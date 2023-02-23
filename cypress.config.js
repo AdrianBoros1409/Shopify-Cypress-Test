@@ -9,6 +9,8 @@ module.exports = defineConfig({
     specPattern: 'cypress/e2e/TestCases/*.cy.{js,ts}',
     viewportHeight: 1024,
     viewportWidth: 1560,
-    requestTimeout: 8000
+    requestTimeout: 8000,
+    experimentalOriginDependencies: true,
+    experimentalSessionAndOrigin: true
   },
 });

@@ -47,7 +47,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
     
                 <span key={"Home"} className="py-3 md:py-0 md:pb-4">
                   <Link
-                    href={"https://www.shopify.com/"}
+                    href={"https://shopify.vercel.store/"}
                     data-test="ftr-navigation-btn-home"
                     className="text-accent-9 hover:text-accent-6 transition ease-in-out duration-150"
                   >

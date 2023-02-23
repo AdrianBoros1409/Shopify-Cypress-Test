@@ -18,7 +18,7 @@ const Hero: FC<HeroProps> = ({ headline, description }) => {
           <div className={s.description} data-test="shopify-info-description">
             <p>{description}</p>
             <Link
-              href="https://www.shopify.com/"
+              href="https://shopify.vercel.store/"
               target="_blank"
               className="flex items-center text-accent-0 pt-3 font-bold hover:underline cursor-pointer w-max-content"
               date-test="read-it-here-link"
