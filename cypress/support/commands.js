@@ -66,3 +66,7 @@ Cypress.Commands.add('changeSiteLanguage', (language) => {
         cy.url().should('not.contain', 'es')
     }
 })
+
+Cypress.Commands.add('checkSortedProducts', (mode) => {
+    
+})

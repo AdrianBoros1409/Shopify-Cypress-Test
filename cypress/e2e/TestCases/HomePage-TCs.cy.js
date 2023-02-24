@@ -75,4 +75,21 @@ describe('Home screen UI test suite', () => {
         cy.changeSiteLanguage('Español')
         cy.changeSiteLanguage('English')
     });
+
+    it.only('H-008 Show all products and order them', () => {
+        cy.get('[data-test="nav-link-search"]').click()
+        cy.url().should('contain', 'search')
+        cy.get('[data-test="product-card"]').should('be.visible').and('have.length', 4)
+        cy.get('[data-test="product-tag-all"]').find('h3').each(($prodName) => {
+            var productName = $prodName.text()
+            expect(globalThis.data.allProductsNames).to.contain(productName)
+        })
+        cy.get('div[role="menu"]').contains('li', 'Price: Low to high').click()
+        cy.get('[data-test="product-price-all"]').then(($price) => {
+            var pattern = /\d+\.?\d+/g
+            var priceWithEur = $price.text().match(pattern)
+            expect(priceWithEur).to.deep.equal([...priceWithEur].sort())
+            // .reverse() pre opacne zoradenie
+        })
+    });
 })
