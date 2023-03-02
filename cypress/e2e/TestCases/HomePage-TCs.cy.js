@@ -14,22 +14,6 @@ describe('Home screen UI test suite', () => {
         cy.visit('/')
         cy.setCookie('accept_cookies', 'accepted')
     })
-
-    it('H-008 Show all products and order them', () => {
-        onHomePage.getAllBtn().click()
-        cy.url().should('contain', 'search')
-        onHomePage.getProductCard().should('be.visible').and('have.length', 4)
-        onHomePage.getNameOnProductCard().each(($prodName) => {
-            var productName = $prodName.text()
-            expect(globalThis.data.allProductsNames).to.contain(productName)
-        })
-        cy.sortProductsAndCheck('Price: Low to high')
-        cy.sortProductsAndCheck('Price: High to low')
-        onHomePage.getHomePageBtn().click()
-        onHomePage.getNumOfMatchingResults().should('contain', 'Showing').and('contain', 'results')
-        onHomePage.getProductCard().should('have.length', 2)
-    });
-
     it('H-001 Correctness of URL and title', () => {
         cy.url().should('contain', 'localhost:3000')
         cy.title().should('contain', 'ACME Storefront')
@@ -92,5 +76,18 @@ describe('Home screen UI test suite', () => {
         cy.changeSiteLanguage('English')
     });
 
-    
+    it('H-008 Show all products and order them', () => {
+        onHomePage.getAllBtn().click()
+        cy.url().should('contain', 'search')
+        onHomePage.getProductCard().should('be.visible').and('have.length', 4)
+        onHomePage.getNameOnProductCard().each(($prodName) => {
+            var productName = $prodName.text()
+            expect(globalThis.data.allProductsNames).to.contain(productName)
+        })
+        cy.sortProductsAndCheck('Price: Low to high')
+        cy.sortProductsAndCheck('Price: High to low')
+        onHomePage.getHomePageBtn().click()
+        onHomePage.getNumOfMatchingResults().should('contain', 'Showing').and('contain', 'results')
+        onHomePage.getProductCard().should('have.length', 2)
+    });
 })
