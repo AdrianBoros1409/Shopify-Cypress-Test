@@ -68,5 +68,26 @@ class HomePage {
     getLanguageDropDownIcon() {
         return cy.get('[data-test="ftr-language-sel"]').find('.cursor-pointer svg')
     }
+    getAllBtn() {
+        return cy.get('[data-test="nav-link-search"]')
+    }
+    getProductCard() {
+        return cy.get('[data-test="product-card"]')
+    }
+    getNameOnProductCard() {
+        return cy.get('[data-test="product-tag-all"]').find('h3')
+    }
+    getMenuItem(itemName) {
+        return cy.get('div[role="menu"]').contains('li', itemName)
+    }
+    getPriceOnProductCard() {
+        return cy.get('[data-test="product-price-all"]')
+    }
+    getHomePageBtn() {
+        return cy.get('[data-test="nav-link-home-page"]')
+    }
+    getNumOfMatchingResults() {
+        return cy.get('[data-test="div-num-of-results"]').find('span[class*="fadeIn"]')
+    }
 }
 export const onHomePage = new HomePage()

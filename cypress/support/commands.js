@@ -67,6 +67,17 @@ Cypress.Commands.add('changeSiteLanguage', (language) => {
     }
 })
 
-Cypress.Commands.add('checkSortedProducts', (mode) => {
-    
+Cypress.Commands.add('sortProductsAndCheck', (option) => {
+    onHomePage.getMenuItem(option).click()
+    onHomePage.getPriceOnProductCard().then(($price) => {
+        var pattern = /\d+\.?\d+/g
+        var priceWithEur = $price.text().match(pattern)
+        if (option == 'Price: Low to high') {
+            expect(priceWithEur).to.deep.equal([...priceWithEur].sort())
+        } else if(option == 'Price: High to low') {
+            expect(priceWithEur).to.deep.equal([...priceWithEur].sort().reverse())
+        } else {
+            throw new Error('The condition was not met!')
+        }
+    })
 })
