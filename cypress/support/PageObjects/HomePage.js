@@ -71,23 +71,11 @@ class HomePage {
     getAllBtn() {
         return cy.get('[data-test="nav-link-search"]')
     }
-    getProductCard() {
-        return cy.get('[data-test="product-card"]')
+    getSearchBar() {
+        return cy.get('#search')
     }
-    getNameOnProductCard() {
-        return cy.get('[data-test="product-tag-all"]').find('h3')
-    }
-    getMenuItem(itemName) {
-        return cy.get('div[role="menu"]').contains('li', itemName)
-    }
-    getPriceOnProductCard() {
-        return cy.get('[data-test="product-price-all"]')
-    }
-    getHomePageBtn() {
-        return cy.get('[data-test="nav-link-home-page"]')
-    }
-    getNumOfMatchingResults() {
-        return cy.get('[data-test="div-num-of-results"]').find('span[class*="fadeIn"]')
+    getWebsiteLogo() {
+        return cy.get('[data-test="logo"]')
     }
 }
 export const onHomePage = new HomePage()

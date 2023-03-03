@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
 import { onHomePage } from "../../support/PageObjects/HomePage"
+import { onSearchPage } from "../../support/PageObjects/SearchPage";
 
 describe('Home screen UI test suite', () => {
     Cypress.on('uncaught:exception', (err, runnable) => {
@@ -13,6 +14,7 @@ describe('Home screen UI test suite', () => {
     beforeEach(() => {
         cy.visit('/')
         cy.setCookie('accept_cookies', 'accepted')
+        cy.getCookie('accept_cookies').should('have.property', 'value', 'accepted')
     })
     it('H-001 Correctness of URL and title', () => {
         cy.url().should('contain', 'localhost:3000')
@@ -79,15 +81,27 @@ describe('Home screen UI test suite', () => {
     it('H-008 Show all products and order them', () => {
         onHomePage.getAllBtn().click()
         cy.url().should('contain', 'search')
-        onHomePage.getProductCard().should('be.visible').and('have.length', 4)
-        onHomePage.getNameOnProductCard().each(($prodName) => {
+        onSearchPage.getProductCard().should('be.visible').and('have.length', 4)
+        onSearchPage.getNameOnProductCard().each(($prodName) => {
             var productName = $prodName.text()
             expect(globalThis.data.allProductsNames).to.contain(productName)
         })
         cy.sortProductsAndCheck('Price: Low to high')
         cy.sortProductsAndCheck('Price: High to low')
-        onHomePage.getHomePageBtn().click()
-        onHomePage.getNumOfMatchingResults().should('contain', 'Showing').and('contain', 'results')
-        onHomePage.getProductCard().should('have.length', 2)
+        onSearchPage.getHomePageBtn().click()
+        onSearchPage.getNumOfMatchingResults().should('contain', 'Showing').and('contain', 'results')
+        onSearchPage.getProductCard().should('have.length', 2)
+    });
+
+    it('H-009 Search for product', () => {
+        onHomePage.getSearchBar().type(globalThis.data.productInOffer + `{enter}`).should('have.value', globalThis.data.productInOffer)
+        cy.url().should('contain', globalThis.data.productInOffer)
+        onSearchPage.getNumOfMatchingResults().should('contain', 'Showing').and('contain', globalThis.data.productInOffer)
+        onHomePage.getWebsiteLogo().click()
+        cy.url().should('not.contain', globalThis.data.productInOffer)
+        onHomePage.getSearchBar().clear().should('be.empty')
+        onHomePage.getSearchBar().type(globalThis.data.productNotInOffer + `{enter}`).should('have.value', globalThis.data.productNotInOffer)
+        cy.url().should('contain', globalThis.data.productNotInOffer)
+        onSearchPage.getNumOfMatchingResults().should('contain', 'There are no products that match').and('contain', globalThis.data.productNotInOffer)
     });
 })

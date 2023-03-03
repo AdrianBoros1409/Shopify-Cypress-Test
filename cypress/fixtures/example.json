@@ -1,5 +1,7 @@
 {
   "upperSliderProductNames": ["Train&Sleep T-shirt", "Nike T-shirt", "QR code shirt"],
   "lowerSliderProductName": "Code Shirt",
-  "allProductsNames": ["Train&Sleep T-shirt", "Nike T-shirt", "QR code shirt", "Code Shirt"]
+  "allProductsNames": ["Train&Sleep T-shirt", "Nike T-shirt", "QR code shirt", "Code Shirt"],
+  "productInOffer": "Nike",
+  "productNotInOffer": "Test"
 }
