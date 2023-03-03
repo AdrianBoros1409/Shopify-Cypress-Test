@@ -25,6 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { onHomePage } from "../support/PageObjects/HomePage"
+import { onSearchPage } from "./PageObjects/SearchPage"
 
 Cypress.Commands.add('changeSiteTheme', (themeColor) => {
     onHomePage.getThemeSwitcherBtn().click()
@@ -68,8 +69,8 @@ Cypress.Commands.add('changeSiteLanguage', (language) => {
 })
 
 Cypress.Commands.add('sortProductsAndCheck', (option) => {
-    onHomePage.getMenuItem(option).click()
-    onHomePage.getPriceOnProductCard().then(($price) => {
+    onSearchPage.getMenuItem(option).click()
+    onSearchPage.getPriceOnProductCard().then(($price) => {
         var pattern = /\d+\.?\d+/g
         var priceWithEur = $price.text().match(pattern)
         if (option == 'Price: Low to high') {
