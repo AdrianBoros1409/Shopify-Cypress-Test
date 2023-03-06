@@ -82,3 +82,13 @@ Cypress.Commands.add('sortProductsAndCheck', (option) => {
         }
     })
 })
+
+Cypress.Commands.add('LoginWithDialog', (email, passwd) => {
+    onHomePage.getEmailInputField().type(email).should('have.value', email)
+    onHomePage.getPasswordInputField().type(passwd, {log: false}).should(($el) => {
+        if ($el.val() !== passwd) {
+            throw new Error('Different value of typed password')
+        }
+    })
+    onHomePage.getSubmitBtn().click()
+})

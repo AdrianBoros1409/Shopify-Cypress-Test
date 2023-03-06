@@ -37,7 +37,7 @@ const Modal: FC<ModalProps> = ({ children, onClose }) => {
 
   return (
     <div className={s.root}>
-      <div className={s.modal} role="dialog" ref={ref}>
+      <div className={s.modal} role="dialog" ref={ref} data-test="login-dialog">
         <button
           onClick={() => onClose()}
           aria-label="Close panel"

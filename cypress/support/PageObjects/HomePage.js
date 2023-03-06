@@ -77,5 +77,29 @@ class HomePage {
     getWebsiteLogo() {
         return cy.get('[data-test="logo"]')
     }
+    addToWishListhBtn() {
+        return cy.get('[data-test="add-to-wishlist-btn"]')
+    }
+    getLoginDialog() {
+        return cy.get('[data-test="login-dialog"]')
+    }
+    getEmailInputField() {
+        return cy.get('[data-test="login-dialog"] form').find('input[type="email"]')
+    }
+    getPasswordInputField() {
+        return cy.get('[data-test="login-dialog"] form').find('input[type="password"]')
+    }
+    getSubmitBtn() {
+        return cy.get('[data-test="login-dialog"] form').find('button[type="submit"]')
+    }
+    getAvatarBtn() {
+        return cy.get('[data-test="avatar-btn"]')
+    }
+    getAvatarMenuItems() {
+        return cy.get('[data-test="customer-dropdown"]').find('div[role="menuitem"]')
+    }
+    getWishListBtn() {
+        return cy.get('[data-test="wishlist-btn"]')
+    }
 }
 export const onHomePage = new HomePage()

@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 import { onHomePage } from "../../support/PageObjects/HomePage"
 import { onSearchPage } from "../../support/PageObjects/SearchPage";
+import { onWishlistPage } from "../../support/PageObjects/WishlistPage";
 
 describe('Home screen UI test suite', () => {
     Cypress.on('uncaught:exception', (err, runnable) => {
@@ -103,5 +104,20 @@ describe('Home screen UI test suite', () => {
         onHomePage.getSearchBar().type(globalThis.data.productNotInOffer + `{enter}`).should('have.value', globalThis.data.productNotInOffer)
         cy.url().should('contain', globalThis.data.productNotInOffer)
         onSearchPage.getNumOfMatchingResults().should('contain', 'There are no products that match').and('contain', globalThis.data.productNotInOffer)
+    });
+
+    it('H-010 Add product to wishlist', () => {
+        onHomePage.addToWishListhBtn().first().click()
+        onHomePage.getLoginDialog().should('be.visible')
+        cy.LoginWithDialog(globalThis.data.userEmail, globalThis.data.userPassword)
+        onHomePage.addToWishListhBtn().first().click()
+        onHomePage.getAvatarBtn().click()
+        onHomePage.getAvatarMenuItems().last().find('a').should('have.text', 'Logout')
+        cy.reload()
+        onHomePage.getWishListBtn().click()
+        cy.url().should('contain', 'wishlist')
+        onWishlistPage.getWishlistHeadline().should('be.visible').and('have.text', 'My Wishlist')
+        onWishlistPage.getWishlistCenterText().should('have.text', 'Your wishlist is empty')
+        onWishlistPage.getWishlistSubline().should('include.text', 'Make a wish')
     });
 })

@@ -3,5 +3,7 @@
   "lowerSliderProductName": "Code Shirt",
   "allProductsNames": ["Train&Sleep T-shirt", "Nike T-shirt", "QR code shirt", "Code Shirt"],
   "productInOffer": "Nike",
-  "productNotInOffer": "Test"
+  "productNotInOffer": "Test",
+  "userEmail": "adrianboros2@gmail.com",
+  "userPassword": "Adriano10"
 }
