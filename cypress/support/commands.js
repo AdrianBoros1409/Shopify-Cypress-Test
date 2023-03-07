@@ -83,6 +83,39 @@ Cypress.Commands.add('sortProductsAndCheck', (option) => {
     })
 })
 
+Cypress.Commands.add('LoginWithoutDialog', (email, passwd) => {
+    cy.fixture('example').then((data) => {
+        globalThis.data = data;
+    })
+    const tokenQuery = `
+        mutation customerAccessTokenCreate {
+            customerAccessTokenCreate(input: {email: "${email}", password: "${passwd}"}) {
+            customerAccessToken {
+                accessToken
+            }
+            customerUserErrors {
+                message
+            }
+            }
+        }
+    `
+    cy.request({
+        method: 'POST',
+        url: 'https://demostoreadrian.myshopify.com/api/2023-01/graphql.json',
+        headers: {
+            'X-Shopify-Storefront-Access-Token': globalThis.data.storefrontAccessToken,
+            'Content-Type': 'application/json'
+        },
+        body: {
+            query: tokenQuery,
+            fetchPolicy: 'no-cache'
+        }
+    }).then((response) => {
+        const customerToken = response.body.data.customerAccessTokenCreate.customerAccessToken.accessToken
+        cy.setCookie('shopify_customerToken', customerToken)
+    })    
+})
+
 Cypress.Commands.add('LoginWithDialog', (email, passwd) => {
     onHomePage.getEmailInputField().type(email).should('have.value', email)
     onHomePage.getPasswordInputField().type(passwd, {log: false}).should(($el) => {

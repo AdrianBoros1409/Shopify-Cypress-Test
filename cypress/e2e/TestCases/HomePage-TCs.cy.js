@@ -109,8 +109,10 @@ describe('Home screen UI test suite', () => {
     it('H-010 Add product to wishlist', () => {
         onHomePage.addToWishListhBtn().first().click()
         onHomePage.getLoginDialog().should('be.visible')
-        cy.LoginWithDialog(globalThis.data.userEmail, globalThis.data.userPassword)
-        onHomePage.addToWishListhBtn().first().click()
+        cy.LoginWithoutDialog(globalThis.data.userEmail, globalThis.data.userPassword)
+        cy.get('[data-test="close-icon"]').click()
+        cy.reload()
+        cy.wait(1000)
         onHomePage.getAvatarBtn().click()
         onHomePage.getAvatarMenuItems().last().find('a').should('have.text', 'Logout')
         cy.reload()
