@@ -71,7 +71,7 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
         {process.env.COMMERCE_CART_ENABLED && (
           <Button
             aria-label="Add to Cart"
-            data-test="product-btn"
+            data-test="add-to-cart-btn"
             type="button"
             className={s.button}
             onClick={addToCart}
@@ -84,12 +84,12 @@ const ProductSidebar: FC<ProductSidebarProps> = ({ product, className }) => {
           </Button>
         )}
       </div>
-      <div className="mt-6">
-        <Collapse title="Care">
+      <div className="mt-6" data-test="product-additional-info">
+        <Collapse title="Care" data-test="care-section">
           This is a limited edition production run. Printing starts when the
           drop ends.
         </Collapse>
-        <Collapse title="Details">
+        <Collapse title="Details" data-test="details-section">
           This is a limited edition production run. Printing starts when the
           drop ends. Reminder: Bad Boys For Life. Shipping may take 10+ days due
           to COVID-19.

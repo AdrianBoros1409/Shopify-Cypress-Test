@@ -10,7 +10,6 @@ module.exports = defineConfig({
     viewportHeight: 1024,
     viewportWidth: 1560,
     requestTimeout: 8000,
-    experimentalOriginDependencies: true,
-    experimentalSessionAndOrigin: true
+    experimentalOriginDependencies: true
   },
 });

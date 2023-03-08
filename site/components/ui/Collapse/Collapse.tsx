@@ -29,13 +29,14 @@ const Collapse: FC<CollapseProps> = ({ title, children }) => {
       tabIndex={0}
       aria-expanded={isActive}
       onClick={toggle}
+      data-test="product-info-collapse"
     >
-      <div className={s.header}>
+      <div className={s.header} data-test="collapse-header">
         <ChevronRight className={cn(s.icon, { [s.open]: isActive })} />
         <span className={s.label}>{title}</span>
       </div>
       <a.div style={{ overflow: 'hidden', ...animProps }}>
-        <div ref={ref} className={s.content}>
+        <div ref={ref} className={s.content} data-test="collapsed-content">
           {children}
         </div>
       </a.div>

@@ -3,7 +3,7 @@ import { onHomePage } from "../../support/PageObjects/HomePage"
 import { onSearchPage } from "../../support/PageObjects/SearchPage";
 import { onWishlistPage } from "../../support/PageObjects/WishlistPage";
 
-describe('Home screen UI test suite', () => {
+describe('Home screen UI + UX test suite', () => {
     Cypress.on('uncaught:exception', (err, runnable) => {
         return false;
     });
@@ -113,9 +113,8 @@ describe('Home screen UI test suite', () => {
         cy.get('[data-test="close-icon"]').click()
         cy.reload()
         cy.wait(1000)
-        onHomePage.getAvatarBtn().click()
-        onHomePage.getAvatarMenuItems().last().find('a').should('have.text', 'Logout')
-        cy.reload()
+        onHomePage.addToWishListhBtn().first().click()
+        onHomePage.getLoginDialog().should('not.exist')
         onHomePage.getWishListBtn().click()
         cy.url().should('contain', 'wishlist')
         onWishlistPage.getWishlistHeadline().should('be.visible').and('have.text', 'My Wishlist')

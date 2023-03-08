@@ -6,5 +6,7 @@
   "productNotInOffer": "Test",
   "userEmail": "adrianboros2@gmail.com",
   "userPassword": "Adriano10",
-  "storefrontAccessToken": "f5d584836eb580e4ad6acbcea87a25e9"
+  "storefrontAccessToken": "f5d584836eb580e4ad6acbcea87a25e9",
+  "productActionsFirstProductName": "train-sleep-t-shirt",
+  "productActionsSecondProductName": "nike-t-shirt"
 }
