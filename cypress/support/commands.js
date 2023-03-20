@@ -26,6 +26,7 @@
 
 import { onHomePage } from "../support/PageObjects/HomePage"
 import { onSearchPage } from "./PageObjects/SearchPage"
+import { onProductPage } from "./PageObjects/ProductPage"
 
 Cypress.Commands.add('changeSiteTheme', (themeColor) => {
     onHomePage.getThemeSwitcherBtn().click()
@@ -124,4 +125,13 @@ Cypress.Commands.add('LoginWithDialog', (email, passwd) => {
         }
     })
     onHomePage.getSubmitBtn().click()
+})
+
+Cypress.Commands.add('CollapsedContentVisibilityCheck', () => {
+    onProductPage.getCareCollapsedContent().should('not.be.visible')
+    onProductPage.getDetailsCollapsedContent().should('not.be.visible')
+    onProductPage.getCollapseHeader('Care').click()
+    onProductPage.getCareCollapsedContent().should('be.visible')
+    onProductPage.getCollapseHeader('Details').click()
+    onProductPage.getDetailsCollapsedContent().should('be.visible')
 })

@@ -17,13 +17,19 @@ describe('Home screen UI + UX test suite', () => {
         cy.setCookie('accept_cookies', 'accepted')
         cy.getCookie('accept_cookies').should('have.property', 'value', 'accepted')
     })
+
+    /*
+        Check if the URL and title contain correct data
+    */
     it('H-001 Correctness of URL and title', () => {
         cy.url().should('contain', 'localhost:3000')
         cy.title().should('contain', 'ACME Storefront')
         onHomePage.getCookiesBar().should('not.be.visible')
-        onHomePage.getCookiesBtn().should('not.be.visible')
     });
 
+    /*
+        Check if each of the grids contain 3 products and check image hover effect
+    */
     it('H-002 Grid products count and effect', () => {
         onHomePage.getUpperGridProducts().should('have.length', 3)
         onHomePage.getUpperGridProductCards().each(($el) => {
@@ -35,6 +41,9 @@ describe('Home screen UI + UX test suite', () => {
         })
     });
 
+    /*
+        Check if upper slider contains 3 products and lower slider 1 product
+    */
     it('H-003 Sliders products count', () => {
         onHomePage.getUpperSliderProducts().should('have.length', 3)
         onHomePage.getUpperSliderProductsNames().each(($el) => {
@@ -48,6 +57,9 @@ describe('Home screen UI + UX test suite', () => {
         })
     });
 
+    /*
+        Check if shopify info part contains correct header and content
+    */
     it('H-004 Shopify information header and content', () => {
         onHomePage.getInfoElementHeader().should('have.text', 'What is Shopify?')
         onHomePage.getInfoElementDescription().should('contain.text', 'Our expertise and leadership in commerce comes from the experiences')
@@ -60,12 +72,18 @@ describe('Home screen UI + UX test suite', () => {
         })
     });
 
+    /*  
+        Check links in footer redirect user to correct pages
+    */
     it('H-005 Link redirections in footer', () => {
         cy.linkRedirection(onHomePage.getFooterHomeBtn(), 'shopify.vercel.store')
         cy.linkRedirection(onHomePage.getFooterContactBtn(), 'vercel.com/contact')
         cy.linkRedirection(onHomePage.getFtrGitHubLogo(), 'github.com/vercel/commerce')
     });
 
+    /*
+        Check if background changing function is working correctly
+    */
     it('H-006 Change website background', () => {
         onHomePage.getThemeSwitcherOptionsList().should('not.exist')
         onHomePage.getCurrentBackgroundTheme().should('have.text','system')
@@ -73,12 +91,18 @@ describe('Home screen UI + UX test suite', () => {
         cy.changeSiteTheme('dark')
     });
 
+    /*
+        Check if is possible to change the language of website
+    */
     it('H-007 Change website language', () => {
         onHomePage.getLanguageDropDownOptions().should('not.exist')
         cy.changeSiteLanguage('Español')
         cy.changeSiteLanguage('English')
     });
 
+    /*
+        Show all products by clicking on button All and order them
+    */
     it('H-008 Show all products and order them', () => {
         onHomePage.getAllBtn().click()
         cy.url().should('contain', 'search')
@@ -94,6 +118,9 @@ describe('Home screen UI + UX test suite', () => {
         onSearchPage.getProductCard().should('have.length', 2)
     });
 
+    /*
+        Search for product which is in offer and also for products not in offer
+    */
     it('H-009 Search for product', () => {
         onHomePage.getSearchBar().type(globalThis.data.productInOffer + `{enter}`).should('have.value', globalThis.data.productInOffer)
         cy.url().should('contain', globalThis.data.productInOffer)
@@ -106,6 +133,9 @@ describe('Home screen UI + UX test suite', () => {
         onSearchPage.getNumOfMatchingResults().should('contain', 'There are no products that match').and('contain', globalThis.data.productNotInOffer)
     });
 
+    /*
+        Add product to wishlist before logging in and also after logging in
+    */
     it('H-010 Add product to wishlist', () => {
         onHomePage.addToWishListhBtn().first().click()
         onHomePage.getLoginDialog().should('be.visible')

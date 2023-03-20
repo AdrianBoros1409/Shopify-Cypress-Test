@@ -18,7 +18,10 @@ describe('Page screen UI test suite', () => {
         cy.getCookie('accept_cookies').should('have.property', 'value', 'accepted')
     })
 
-    it('P-001 Product actions', () => {
+    /*
+        Open product and check actions which can be performed on product
+    */
+    it('P-001 Product actions with color options', () => {
         onHomePage.getUpperGridProductCards().first().click()
         cy.url().should('contain', globalThis.data.productActionsFirstProductName)
         onProductPage.getProductName().should('have.text', globalThis.data.upperSliderProductNames[0])
@@ -26,23 +29,37 @@ describe('Page screen UI test suite', () => {
         onProductPage.getProductVariants().should('have.length', 3).each(($color) => {
             cy.wrap($color).click()
             onProductPage.getAddToCartBtn().should('not.be.disabled')
+            onProductPage.getAddToCartBtn().should('have.text', 'Add To Cart')
         })
         onProductPage.addToWishListhBtn().click()
         onProductPage.getLoginDialog().should('be.visible')
         cy.LoginWithoutDialog(globalThis.data.userEmail, globalThis.data.userPassword)
         cy.reload()
         cy.wait(1000)
-        onProductPage.addToWishListhBtn().click()
-        onProductPage.getLoginDialog().should('not.exist')
-        onProductPage.getCareCollapsedContent().should('not.be.visible')
-        onProductPage.getDetailsCollapsedContent().should('not.be.visible')
-        onProductPage.getCollapseHeader('Care').click()
-        onProductPage.getCareCollapsedContent().should('be.visible')
-        onProductPage.getCollapseHeader('Details').click()
-        onProductPage.getDetailsCollapsedContent().should('be.visible')
-        cy.go('back')
+        cy.CollapsedContentVisibilityCheck()
+    });
+
+    /*
+        Open product and check actions which can be performed on product
+    */
+    it('P-002 Product actions with sizes options', () => {
         onHomePage.getUpperGridProductCards().eq(1).click()
         cy.url().should('contain', globalThis.data.productActionsSecondProductName)
         onProductPage.getProductName().should('have.text', globalThis.data.upperSliderProductNames[1])
+        onProductPage.getProductOptionLabel().should('have.text', 'size')
+        onProductPage.getProductVariants().should('have.length', 3).each(($size) => {
+            cy.wrap($size).click()
+            if ($size.text() == 'large') {
+                onProductPage.getAddToCartBtn().should('be.disabled')
+                onProductPage.getAddToCartBtn().should('have.text', 'Not Available')
+                onProductPage.getAddToCartBtn().realHover().should('have.css', 'cursor', 'not-allowed')
+            }
+            else {
+                onProductPage.getAddToCartBtn().should('not.be.disabled')
+                onProductPage.getAddToCartBtn().should('have.text', 'Add To Cart')
+                onProductPage.getAddToCartBtn().realHover().should('have.css', 'cursor', 'pointer')
+            }   
+        })
+        cy.CollapsedContentVisibilityCheck()
     });
 })
