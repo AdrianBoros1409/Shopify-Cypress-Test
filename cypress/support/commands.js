@@ -135,3 +135,22 @@ Cypress.Commands.add('CollapsedContentVisibilityCheck', () => {
     onProductPage.getCollapseHeader('Details').click()
     onProductPage.getDetailsCollapsedContent().should('be.visible')
 })
+
+Cypress.Commands.add('getProductInfoRequest', (prodTitle) => {
+    cy.fixture('example').then((data) => {
+        globalThis.data = data;
+    })
+    cy.request({
+        method: 'GET',
+        url: 'https://demostoreadrian.myshopify.com/admin/api/2023-01/products.json',
+        headers: {
+            'X-Shopify-Access-Token': globalThis.data.shopifyAccessToken,
+            'Content-Type': 'application/json'
+        },
+        qs: {
+            'title': prodTitle
+        }
+    }).then((response) => {
+        return response.body
+    })
+})

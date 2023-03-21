@@ -62,4 +62,26 @@ describe('Page screen UI test suite', () => {
         })
         cy.CollapsedContentVisibilityCheck()
     });
+
+    it('P-003 Product page with request info', () => {
+        onHomePage.getUpperGridProductCards().eq(1).click()
+        var prodName = ""
+        onProductPage.getProductName().then(($name) => {
+            prodName = $name.text()
+        })
+        cy.getProductInfoRequest(globalThis.data.allProductsNames[1]).then((resp) => {
+            expect(resp.products).to.have.length(1)
+            expect(resp.products[0].title).to.be.equal(prodName)
+            expect(resp.products[0].status).to.be.equal('active')
+            expect(resp.products[0].options[0].name).to.be.equal('Size')
+            expect(resp.products[0].options[0].values).to.have.length(3)
+            const sizeValues = resp.products[0].options[0].values.map(($el) => {
+                return $el.toLowerCase()
+            })
+            onProductPage.getProductVariants().each(($variant) => {
+                expect(sizeValues).to.contain($variant.text())
+            })
+            cy.url().should('contain', resp.products[0].handle)
+        })
+    });
 })
