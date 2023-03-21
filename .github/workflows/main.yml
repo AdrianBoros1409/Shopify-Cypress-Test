@@ -3,8 +3,6 @@ name: Automated Tests
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
 
 jobs:
   build:
@@ -17,19 +15,20 @@ jobs:
       with: 
         node-version: 18.x
         cache-dependency-path: package-lock.json
-    - name: Setup pnpm
+    - name: Install pnpm
       run: npm install -g pnpm
     - uses: actions/cache@v3.2.6
       with:
         path: '**/node_modules'
         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-    - name: pnpm install
-      run: pnpm install --no-frozen-lockfile
-    - name: Install turbo
-      run: npm i turbo
-    - name: pnpm build
-      run: pnpm build
-    - name: pnpm start
-      run: pnpm start &
-    - name: pnpm test
-      run: pnpm test
+    - name: Cypress.io
+      uses: cypress-io/github-action@v5.0.9
+      with:
+        browser: chrome
+        build: yarn build
+        start: yarn start
+        wait-on: "http://localhost:3000"
+    env:
+          COMMERCE_PROVIDER: ${{ secrets.COMMERCE_PROVIDER }}
+          NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN: ${{ secrets.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN }}
