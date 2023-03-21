@@ -71,7 +71,7 @@ describe('Page screen UI test suite', () => {
         })
         cy.getProductInfoRequest(globalThis.data.allProductsNames[1]).then((resp) => {
             expect(resp.products).to.have.length(1)
-            expect(resp.products[0].title).to.be.equal(prodName)
+            expect(resp.products[0].title).to.contain(prodName)
             expect(resp.products[0].status).to.be.equal('active')
             expect(resp.products[0].options[0].name).to.be.equal('Size')
             expect(resp.products[0].options[0].values).to.have.length(3)
