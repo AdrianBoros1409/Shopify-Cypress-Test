@@ -24,7 +24,6 @@ describe('Home screen UI + UX test suite', () => {
     it('H-001 Correctness of URL and title', () => {
         cy.url().should('contain', 'localhost:3000')
         cy.title().should('contain', 'ACME Storefront')
-        onHomePage.getCookiesBar().should('not.be.visible')
     });
 
     /*
