@@ -17,6 +17,8 @@ jobs:
         cache-dependency-path: package-lock.json
     - name: Install pnpm
       run: npm install -g pnpm
+    - name: pnpm install
+      run: pnpm install --no-frozen-lockfile
     - name: Cypress.io
       uses: cypress-io/github-action@v5.0.9
       with:
