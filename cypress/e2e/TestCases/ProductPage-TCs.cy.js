@@ -2,6 +2,7 @@
 
 import { onHomePage } from "../../support/PageObjects/HomePage"
 import { onProductPage } from "../../support/PageObjects/ProductPage";
+import { onSidebar } from "../../support/PageObjects/Sidebar";
 
 describe('Page screen UI test suite', () => {
     Cypress.on('uncaught:exception', (err, runnable) => {
@@ -81,5 +82,28 @@ describe('Page screen UI test suite', () => {
             })
             cy.url().should('contain', resp.products[0].handle)
         })
+    });
+
+    it('P-004 Cart sidebar actions', () => {
+        onHomePage.getUpperGridProductCards().first().click()
+        var productPrice = ""
+        onProductPage.getProductPrice().then(($price) => {
+            productPrice = $price.text().split(' ')
+            onProductPage.getProductVariants().last().click()
+            onProductPage.getAddToCartBtn().click()
+            onProductPage.getSidebar().should('be.visible')
+            onSidebar.getMyCartLink().find('h2').should('have.text', 'My Cart')
+            onSidebar.getSidebarCartInfoSubtotalPrice().should('have.text', productPrice[0])
+            onSidebar.getSidebarCartInfoTotalPrice().should('have.text', productPrice[0])
+        })
+        onSidebar.getSidebarCartInfoTaxes().should('have.text', 'Calculated at checkout')
+        onSidebar.getSidebarCartInfoShipping().should('have.text', 'FREE')
+        onSidebar.getDecreaseAmountBtn().should('have.attr', 'disabled')
+        onSidebar.getQuantity().should('have.value', 1)
+        onSidebar.getIncreaseAmountBtn().click()
+        onSidebar.getQuantity().should('have.value', 2)
+        onSidebar.getRemoveFromCartBtn().click()
+        onProductPage.getEmptySidebar().find('h2').should('have.text', 'Your cart is empty')
+        onSidebar.getSidebarCloseBtn().click()
     });
 })

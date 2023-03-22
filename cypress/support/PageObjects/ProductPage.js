@@ -26,5 +26,14 @@ class ProductPage {
     getCollapseHeader(option) {
         return cy.get('[data-test="collapse-header"]').contains('span', option)
     }
+    getSidebar() {
+        return cy.get('[data-test="sidebar-open"]')
+    }
+    getProductPrice() {
+        return cy.get('[data-test="product-price"]')
+    }
+    getEmptySidebar() {
+        return cy.get('[data-test="sidebar-empty"]')
+    }
 }
 export const onProductPage = new ProductPage()
