@@ -20,6 +20,13 @@ describe('Page screen UI test suite', () => {
     })
 
     /*
+        Function that returns random number in a interval <min; max>
+    */
+    function getRandomInt(min, max){      
+        return Math.floor(Math.random() * (max - min + 1)) + min;    
+    } 
+
+    /*
         Open product and check actions which can be performed on product
     */
     it('P-001 Product actions with color options', () => {
@@ -64,6 +71,9 @@ describe('Page screen UI test suite', () => {
         cy.CollapsedContentVisibilityCheck()
     });
 
+    /*
+        Open product and compare info from website with info from response
+    */
     it('P-003 Product page with request info', () => {
         onHomePage.getUpperGridProductCards().eq(1).click()    
         cy.getProductInfoRequest(globalThis.data.allProductsNames[1]).then((resp) => {
@@ -84,12 +94,15 @@ describe('Page screen UI test suite', () => {
         })
     });
 
+    /*
+        Open product, add it to cart and check cart sidebar
+    */
     it('P-004 Cart sidebar actions', () => {
-        onHomePage.getUpperGridProductCards().first().click()
+        const randomNumber = getRandomInt(0,2)
+        onHomePage.getUpperGridProductCards().eq(randomNumber).click()
         var productPrice = ""
         onProductPage.getProductPrice().then(($price) => {
             productPrice = $price.text().split(' ')
-            onProductPage.getProductVariants().last().click()
             onProductPage.getAddToCartBtn().click()
             onProductPage.getSidebar().should('be.visible')
             onSidebar.getMyCartLink().find('h2').should('have.text', 'My Cart')
@@ -105,5 +118,43 @@ describe('Page screen UI test suite', () => {
         onSidebar.getRemoveFromCartBtn().click()
         onProductPage.getEmptySidebar().find('h2').should('have.text', 'Your cart is empty')
         onSidebar.getSidebarCloseBtn().click()
+    });
+
+    /*
+        Open product, add it to cart and proceed to checkout
+    */
+    it('P-005 E2E Add a product to the cart and checkout', () => {
+        const randomNumber = getRandomInt(0,2)
+        onHomePage.getUpperGridProductCards().eq(randomNumber).click()
+        onProductPage.getAddToCartBtn().click()
+        onSidebar.getCheckoutBtn().click()
+        const sentArgs = { 
+            email: globalThis.data.userEmail, 
+            firstname: globalThis.data.firstName,
+            lastname: globalThis.data.lastName,
+            address: globalThis.data.address,
+            postalCode: globalThis.data.postalCode,
+            city: globalThis.data.city
+        }
+        cy.origin('https://demostoreadrian.myshopify.com', { args: sentArgs }, ({email, firstname, lastname, address, postalCode, city}) => {
+            cy.get('#email').type(email).should('have.value', email)
+            cy.get('#TextField0').type(firstname).should('have.value', firstname)
+            cy.get('#TextField1').type(lastname).should('have.value', lastname)
+            cy.get('#TextField2').type(address).should('have.value', address)
+            cy.get('#TextField4').type(postalCode).should('have.value', postalCode)
+            cy.get('#TextField5').type(city).should('have.value', city)
+            cy.contains('button[type="submit"]', 'Continue to shipping').click()
+            cy.get('section[aria-label="Review"]').find('div[role="cell"]').each(($cell, index) => {
+                if (index == 1) {
+                    expect($cell.text()).to.be.eq(email)
+                }
+                if (index == 4) {
+                    expect($cell.text()).to.include(address)
+                    expect($cell.text()).to.include(postalCode)
+                    expect($cell.text()).to.include(city)
+                }
+            })
+            cy.contains('button[type="submit"]', 'Continue to payment').click()
+        })
     });
 })

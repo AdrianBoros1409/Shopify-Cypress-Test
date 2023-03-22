@@ -32,5 +32,8 @@ class Sidebar {
     getSidebarCloseBtn() {
         return cy.get('[data-test="cart-close-btn"]')
     }
+    getCheckoutBtn() {
+        return cy.get('[data-test="checkout-btn"]')
+    }
 }
 export const onSidebar = new Sidebar()

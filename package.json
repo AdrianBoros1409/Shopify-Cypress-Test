@@ -11,6 +11,7 @@
     "test": "npx cypress run"
   },
   "devDependencies": {
+    "cypress": "^12.8.1",
     "husky": "^8.0.1",
     "prettier": "^2.7.1",
     "turbo": "^1.4.6"
@@ -22,7 +23,6 @@
   },
   "packageManager": "pnpm@7.5.0",
   "dependencies": {
-    "cypress": "^12.5.1",
     "cypress-plugin-xhr-toggle": "^1.0.0",
     "cypress-real-events": "^1.7.6"
   }
