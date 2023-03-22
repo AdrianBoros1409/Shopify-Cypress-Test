@@ -64,14 +64,12 @@ describe('Page screen UI test suite', () => {
     });
 
     it('P-003 Product page with request info', () => {
-        onHomePage.getUpperGridProductCards().eq(1).click()
-        var prodName = ""
-        onProductPage.getProductName().then(($name) => {
-            prodName = $name.text()
-        })
+        onHomePage.getUpperGridProductCards().eq(1).click()    
         cy.getProductInfoRequest(globalThis.data.allProductsNames[1]).then((resp) => {
             expect(resp.products).to.have.length(1)
-            expect(prodName).to.be.equal(resp.products[0].title)
+            onProductPage.getProductName().then(($name) => {
+                expect($name.text()).to.be.eq(resp.products[0].title)
+            })
             expect(resp.products[0].status).to.be.equal('active')
             expect(resp.products[0].options[0].name).to.be.equal('Size')
             expect(resp.products[0].options[0].values).to.have.length(3)
