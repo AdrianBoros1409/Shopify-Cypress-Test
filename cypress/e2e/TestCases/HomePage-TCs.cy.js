@@ -31,6 +31,7 @@ describe('Home screen UI + UX test suite', () => {
     */
     it('H-002 Grid products count and effect', () => {
         onHomePage.getUpperGridProducts().should('have.length', 3)
+        onHomePage.getCookiesBar().should('not.be.visible')
         onHomePage.getUpperGridProductCards().each(($el) => {
             cy.wrap($el).realHover().find('img').should('have.css', 'transform', 'matrix(1.1, 0, 0, 1.1, 0, 0)')
         })
